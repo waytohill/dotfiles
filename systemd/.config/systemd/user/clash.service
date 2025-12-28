@@ -1,0 +1,10 @@
+[Unit]
+Description=Clash Proxy
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/clash -d %h/.config/clash
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,18 @@
+[user]
+	name = waytohill
+	email = waytohill@163.com
+[init]
+	defaultBranch = main
+[core]
+	autocrlf = input
+	editor = nvim
+[pull]
+	rebase = false
+[push]
+	default = simple
+[fetch]
+	prune = true
+[diff]
+	colorMoved = zebra
+[branch]
+	autoSetupMerge = simple

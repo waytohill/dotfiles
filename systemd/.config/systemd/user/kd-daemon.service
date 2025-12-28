@@ -1,0 +1,16 @@
+[Unit]
+Description=KD Dictionary Daemon
+After=network.target
+
+[Service]
+Type=simple
+# 关键：这里填入启动 kd 守护进程的命令
+# 如果 kd 需要在后台运行，确保不要加 &，systemd 会处理
+ExecStart=/usr/bin/kd --server --daemon 
+Restart=on-failure
+
+# 禁止服务向标准输出打印过多日志（可选）
+StandardOutput=null
+
+[Install]
+WantedBy=default.target
