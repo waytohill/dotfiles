@@ -24,7 +24,7 @@ elif grep -q "up" "/sys/class/net/$WIFI_IF/operstate" 2>/dev/null; then
     fi
     # 如果无线连接，输出：图标 + SSID
     # 颜色：淡紫色 (#B799FF)
-    echo "$SSID"
+    echo "WiFi"
 
 # 3. 都没有连接
 else
