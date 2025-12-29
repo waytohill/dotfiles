@@ -221,3 +221,38 @@ function clash_stop() {
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
 eval "$(keychain --eval --quiet id_ed25519)"
+
+# 快速切换 CPU 调度策略 (EPP)
+# 使用方法: setpower [p|b|s] (Performance / Balance / Saver)
+function setpower() {
+    local mode=$1
+    local val=""
+    
+    case $mode in
+        p|perf)
+            val="performance"
+            echo "Switching to PERFORMANCE mode..."
+            ;;
+        b|bal)
+            val="balance_performance" 
+            # 或者 balance_power，看您对平衡的定义
+            echo "Switching to BALANCE mode..."
+            ;;
+        s|save)
+            val="power"
+            echo "Switching to POWER SAVER mode..."
+            ;;
+        *)
+            echo "Usage: setpower [p|b|s]"
+            echo "Current state: $(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference)"
+            return 1
+            ;;
+    esac
+
+    # 使用 tee 同时写入所有核心
+    echo "$val" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference > /dev/null
+    
+    # 验证一下 cpu0 的状态
+    local current=$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference)
+    echo "Set to: $current"
+}
