@@ -222,37 +222,105 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
 eval "$(keychain --eval --quiet id_ed25519)"
 
-# 快速切换 CPU 调度策略 (EPP)
-# 使用方法: setpower [p|b|s] (Performance / Balance / Saver)
+# =========================================================
+#  Power Control Center (EPP + TDP + Boost)
+#  Depends: ryzenadj, sudo
+# =========================================================
 function setpower() {
     local mode=$1
-    local val=""
+    local epp_val=""
+    local boost_val=""
+    local profile_val=""
     
+    # 8845HS 功率参数
+    local stapm_limit=""
+    local fast_limit=""
+    local slow_limit=""
+    
+    if ! command -v ryzenadj &> /dev/null; then
+        echo -e "\033[31m[Error]\033[0m 'ryzenadj' not found."
+        return 1
+    fi
+
     case $mode in
         p|perf)
-            val="performance"
-            echo "Switching to PERFORMANCE mode..."
+            echo -e "\n\033[31m Mode: PERFORMANCE\033[0m"
+            epp_val="performance"
+            profile_val="performance"
+            boost_val="1"
+            stapm_limit="54000"
+            fast_limit="65000"
+            slow_limit="60000"
             ;;
         b|bal)
-            val="balance_performance" 
-            # 或者 balance_power，看您对平衡的定义
-            echo "Switching to BALANCE mode..."
+            echo -e "\n\033[34m  Mode: BALANCE\033[0m"
+            epp_val="balance_performance"
+            profile_val="balanced"
+            boost_val="1"
+            stapm_limit="28000"
+            fast_limit="35000"
+            slow_limit="30000"
             ;;
         s|save)
-            val="power"
-            echo "Switching to POWER SAVER mode..."
+            echo -e "\n\033[32m Mode: SAVER\033[0m"
+            epp_val="power"
+            profile_val="low-power"
+            boost_val="0"
+            stapm_limit="15000"
+            fast_limit="18000"
+            slow_limit="15000"
+            ;;
+        stat|status)
+            echo -e "\n\033[1;33m--- Current Power State ---\033[0m"
+            printf "Governor:   \033[36m%s\033[0m\n" "$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)"
+            printf "EPP Hint:   \033[36m%s\033[0m\n" "$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference)"
+            if [[ -f /sys/firmware/acpi/platform_profile ]]; then
+                printf "ACPI Prof:  \033[36m%s\033[0m\n" "$(cat /sys/firmware/acpi/platform_profile)"
+            fi
+            printf "Boost:      \033[36m%s\033[0m\n" "$(cat /sys/devices/system/cpu/cpufreq/boost)"
+            
+            echo -e "\n--- Hardware Limits (ryzenadj) ---"
+            sudo ryzenadj -i | grep -E "STAPM LIMIT|PPT LIMIT FAST|PPT LIMIT SLOW" | sed 's/|//g' | sed 's/^ *//'
+            
+            if [[ -f /sys/class/power_supply/BAT0/power_now ]]; then
+                local p_now=$(cat /sys/class/power_supply/BAT0/power_now)
+                local p_watt=$(echo "scale=2; $p_now / 1000000" | bc)
+                echo -e "\n--- Battery Draw: \033[31m${p_watt} W\033[0m ---"
+            fi
+            return 0
             ;;
         *)
-            echo "Usage: setpower [p|b|s]"
-            echo "Current state: $(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference)"
+            echo "Usage: setpower [ p | b | s | stat ]"
             return 1
             ;;
     esac
 
-    # 使用 tee 同时写入所有核心
-    echo "$val" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference > /dev/null
+    echo "-------------------------------------"
     
-    # 验证一下 cpu0 的状态
-    local current=$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference)
-    echo "Set to: $current"
+    # 0. 【关键修复】强制将 Governor 设为 powersave
+    # 只有在 powersave 模式下，EPP 才能拥有最高控制权
+    echo "0. Locking Governor to 'powersave'..."
+    echo "powersave" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor > /dev/null
+
+    # 1. 设置 ACPI Platform Profile
+    if [[ -f /sys/firmware/acpi/platform_profile ]]; then
+        echo "1. Setting ACPI Profile to '$profile_val'..."
+        if ! echo "$profile_val" | sudo tee /sys/firmware/acpi/platform_profile > /dev/null 2>&1; then
+             echo "   (Note: ACPI profile write skipped)"
+        fi
+    fi
+
+    # 2. 设置 EPP
+    echo "2. Setting EPP to '$epp_val'..."
+    echo "$epp_val" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference > /dev/null
+
+    # 3. 设置 Boost
+    echo "3. Setting Boost to '$boost_val'..."
+    echo "$boost_val" | sudo tee /sys/devices/system/cpu/cpufreq/boost > /dev/null
+
+    # 4. 设置 TDP
+    echo "4. Injecting TDP Limits..."
+    sudo ryzenadj --stapm-limit=$stapm_limit --fast-limit=$fast_limit --slow-limit=$slow_limit --tctl-temp=95 > /dev/null
+
+    echo "Done."
 }
