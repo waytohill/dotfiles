@@ -173,7 +173,7 @@ alias gs='git status'
 alias gl='git log --oneline --graph --decorate'
 alias gco='git checkout'
 alias v='nvim'
-alias shot='maim "$SCREENSHOT_DIR/$(date +%Y%m%d_%H%M%).png"'
+alias shot='maim "$SCREENSHOT_DIR/$(date +%Y%m%d_%H%M%S).png"'
 alias shotw='maim -s "$SCREENSHOT_DIR/$(date +%Y%m%d_%H%M%S)_sel.png"'
 
 # =========================================================
