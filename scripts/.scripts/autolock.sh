@@ -16,12 +16,12 @@ xss-lock --transfer-sleep-lock -- slock &
 xidlehook \
   --not-when-audio \
   --not-when-fullscreen \
-  --timer 600 \
+  --timer 1200 \
     'slock' \
     '' \
-  --timer 600 \
+  --timer 1200 \
     'xset dpms force off' \
     'xset dpms force on' \
-  --timer 1200 \
+  --timer 2400 \
     'systemctl suspend' \
     '' &

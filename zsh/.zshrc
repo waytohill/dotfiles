@@ -69,6 +69,12 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#606060'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
+alias x11='startx'
+alias wayland='startplasma-wayland'
+
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+
+
 export http_proxy="http://127.0.0.1:7890"
 export https_proxy="http://127.0.0.1:7890"
 export all_proxy="socks5://127.0.0.1:7890"
@@ -340,3 +346,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export PATH="$HOME/.local/bin:$PATH"
