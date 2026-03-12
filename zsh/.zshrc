@@ -347,3 +347,8 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# OpenFOAM config
+autoload bashcompinit
+bashcompinit
+alias of2512="source ${FOAM_INST_DIR}/OpenFOAM-v2512/etc/bashrc"

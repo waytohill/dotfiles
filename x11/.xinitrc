@@ -18,7 +18,7 @@ export GLFW_IM_MODULE=fcitx5
 
 ~/.scripts/randomWallpaper.sh &
 
-~/.scripts/autolock.sh &
+# ~/.scripts/autolock.sh &
 
 ~/.scripts/updateWeather.sh &
 
