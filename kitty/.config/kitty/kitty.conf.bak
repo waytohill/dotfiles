@@ -1,0 +1,47 @@
+font_family      Source Code Pro
+bold_font        auto
+italic_font      auto
+font_size        11.0
+
+# fallback 中文
+symbol_map U+4E00-U+9FFF,U+3400-U+4DBF LXGW WenKai
+
+
+#background #0E1419
+#foreground #D0D0D0
+cursor     #56CCF2
+
+#selection_background #1B2836
+#selection_foreground #FFFFFF
+
+color0  #1C232B
+color1  #EB5757
+color2  #27AE60
+color3  #F2C94C
+color4  #2D9CDB
+color5  #9B51E0
+color6  #56CCF2
+color7  #D0D0D0
+color8  #606060
+color9  #EB5757
+color10 #27AE60
+color11 #F2994A
+color12 #56CCF2
+color13 #BB6BD9
+color14 #56CCF2
+color15 #FFFFFF
+
+enable_audio_bell no
+window_padding_width 8
+
+# 0.82
+background_opacity 0.65
+background_blur 0
+
+#inactive_opacity 0.45
+
+cursorline yes
+cursorline_color #3a3a3a
+cursorline_text_color
+
+

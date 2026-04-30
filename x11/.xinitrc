@@ -5,7 +5,9 @@ setxkbmap us
 xset s off
 xset -dpms
 
-xrandr --output eDP --mode 2880x1800 --scale 0.666x0.666
+#xrandr --output eDP --mode 2880x1800 --scale 0.666x0.666
+xrandr --output eDP --off --output HDMI-A-0 --auto --primary
+
 
 xrdb -merge ~/.Xresources
 

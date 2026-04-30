@@ -1,6 +1,6 @@
 #!/bin/sh
 while true; do
-    WEATHER=$(curl -s --max-time 10 --retry 2 'wttr.in/Dalian?format=%c+%t')
+    WEATHER=$(curl -s --max-time 10 --retry 2 'wttr.in/Zouping?format=%c+%t&m')
 
 # 只有当获取到的内容不为空，且不包含 "Unknown" 或 HTML 标签时，才更新缓存
 if [ -n "$WEATHER" ] && [[ "$WEATHER" != *"Unknown"* ]] && [[ "$WEATHER" != *"<"* ]]; then
