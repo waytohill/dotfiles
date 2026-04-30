@@ -429,38 +429,4 @@ bashcompinit
 alias of2512="source ${FOAM_INST_DIR}/OpenFOAM-v2512/etc/bashrc"
 
 
-# Claude Code Model Switcher
-
-function cc-claude(){
-    unset ANTHROPIC_BASE_URL
-
-    echo "🔵 Switched to Claude"}
-
-function cc-kimi(){
-    export ANTHROPIC_BASE_URL=https://api.moonshot.cn/anthropic/
-    export ANTHROPIC_API_KEY=sk-goZhLbQy3oSLOxZotohVVFT452xrSx2WDjmrMullcanEMCLY
-
-
-    echo "🌕 Switched to Kimi"}
-
-function cc-deepseek(){
-    export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
-    export ANTHROPIC_API_KEY=sk-f3753f618e46442786668c6d89061ba6
-    export ANTHROPIC_MODEL="deepseek-v4-pro[1m]"
-    export ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-v4-pro[1m]"
-    export ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-v4-pro[1m]"
-    export ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-v4-pro[1m]"
-    export CLAUDE_CODE_SUBAGENT_MODEL="deepseek-v4-pro[1m]"
-
-    echo "🫍 Switched to DeepSeek"
-}
-
-function cc-mimo(){
-    export ANTHROPIC_BASE_URL=https://token-plan-cn.xiaomimimo.com/anthropic
-    export ANTHROPIC_API_KEY=tp-c9k1siost6w1i5ogtnmldxj51cfl6rqs88rmgoz1xawk5y5c
-    export ANTHROPIC_MODEL="mimo-v2.5-pro"
-    export ANTHROPIC_DEFAULT_OPUS_MODEL="mimi-v2.5-pro"
-    export ANTHROPIC_DEFAULT_SONNET_MODEL="mimo-v2.5-pro"
-    export ANTHROPIC_DEFAULT_HAIKU_MODEL="mimo-v2.5-pro"
-    export CLAUDE_CODE_SUBAGENT_MODEL="mimo-v2.5-pro"
-}
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
