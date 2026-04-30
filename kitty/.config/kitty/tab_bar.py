@@ -6,12 +6,25 @@ def draw_tab(
     before: int, max_tab_length: int, index: int,
     is_last: bool, extra_data: ExtraData
 ) -> int:
-    if index == 0:
-        total = extra_data.num_tabs
-        if tab.is_active:
-            screen.cursor.fg = draw_data.active_bg
-        else:
-            screen.cursor.fg = draw_data.inactive_bg
-        screen.cursor.bg = draw_data.default_bg
-        screen.draw(f"  {total} ")
-    return 0
+    if index != 0:
+        return 0
+
+    # Draw tab count indicator on the first (active) tab only
+    total = extra_data.num_tabs
+    if total <= 1:
+        return 0
+
+    # Set colors: use the active tab accent color
+    screen.cursor.fg = draw_data.active_bg
+    screen.cursor.bg = draw_data.default_bg
+
+    label = f" {total} "
+    screen.draw(label)
+    end = screen.cursor.x
+
+    # Fill rest of the tab bar with background color
+    screen.cursor.fg = draw_data.default_bg
+    screen.cursor.bg = draw_data.default_bg
+    screen.draw(" " * (screen.columns - end))
+
+    return end
