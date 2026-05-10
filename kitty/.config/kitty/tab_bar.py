@@ -14,9 +14,8 @@ def draw_tab(
     if total <= 1:
         return 0
 
-    # Draw a colored marker with tab count
-    # Use the active tab's background as foreground for visibility
-    screen.cursor.fg = as_rgb(0x7aa2f7)  # bright blue - always visible
-    screen.cursor.bg = as_rgb(0x1a1b26)  # dark background
+    # Gruvbox dark colors
+    screen.cursor.fg = as_rgb(0x83a598)  # gruvbox blue
+    screen.cursor.bg = as_rgb(0x282828)  # gruvbox bg
     screen.draw(f" [{total}] ")
     return screen.cursor.x

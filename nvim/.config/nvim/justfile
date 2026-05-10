@@ -1,0 +1,17 @@
+# Neovim configuration tasks
+
+# Update all plugins
+update:
+    nvim --headless "+Lazy update" +qa
+
+# Clean unused plugins
+clean:
+    nvim --headless "+Lazy clean" +qa
+
+# Sync plugins (install + clean + update)
+sync:
+    nvim --headless "+Lazy sync" +qa
+
+# Check health
+health:
+    nvim "+checkhealth" +qa

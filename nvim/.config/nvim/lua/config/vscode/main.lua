@@ -1,0 +1,1 @@
+-- VSCode Neovim specific settings

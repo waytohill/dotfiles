@@ -2,10 +2,10 @@
 #  Zsh config (5.9) - cleaned & stable
 # =========================================================
 
-# ---------- Powerlevel10k instant prompt ----------
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# ---------- Powerlevel10k instant prompt (disabled, using starship) ----------
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # ---------- Prompt expansion ----------
 setopt PROMPT_SUBST
@@ -52,12 +52,12 @@ zinit light-mode for \
   zdharma-continuum/zinit-annex-rust
 
 # =========================================================
-#  Powerlevel10k
+#  Powerlevel10k (disabled, using starship)
 # =========================================================
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-[[ -f ~/.p10k-colors.zsh ]] && source ~/.p10k-colors.zsh
+# zinit ice depth=1
+# zinit light romkatv/powerlevel10k
+# [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+# [[ -f ~/.p10k-colors.zsh ]] && source ~/.p10k-colors.zsh
 
 # =========================================================
 #  Completion (do this BEFORE plugins that rely on it)
@@ -184,28 +184,28 @@ precmd() {
 
 
 # =========================================================
-#  Prompt
+#  Prompt (using starship instead of custom prompt)
 # =========================================================
-EXIT_SEG='%(?..%F{#EB5757}✘%?%f )'
-JOBS_SEG='%(1j.%F{#606060}⚙%j%f .)'
-
-PROMPT='%F{#606060}[%D{%m-%d %H:%M:%S}]%f '"$EXIT_SEG"'${ROOT_SEG}${SSH_SEG}${VENV_SEG}'\
-'%F{#F2D25C}%n%f%F{white}@%f%F{#008043}%m%f %F{#0077C8}%~%f '"$JOBS_SEG"\
-'%F{#606060}${CMD_TIME}%f ${vcs_info_msg_0_} ${GIT_AB_SEG}
-%F{#56CCF2}> %f'
+# EXIT_SEG='%(?..%F{#EB5757}✘%?%f )'
+# JOBS_SEG='%(1j.%F{#606060}⚙%j%f .)'
+#
+# PROMPT='%F{#606060}[%D{%m-%d %H:%M:%S}]%f '"$EXIT_SEG"'${ROOT_SEG}${SSH_SEG}${VENV_SEG}'\
+# '%F{#F2D25C}%n%f%F{white}@%f%F{#008043}%m%f %F{#0077C8}%~%f '"$JOBS_SEG"\
+# '%F{#606060}${CMD_TIME}%f ${vcs_info_msg_0_} ${GIT_AB_SEG}
+# %F{#56CCF2}> %f'
 
 
 # =========================================================
 #  Aliases
 # =========================================================
-alias ll='ls -lh --color=auto'
+alias ll='lsd -lh --color=auto'
 alias gs='git status'
 alias gl='git log --oneline --graph --decorate'
 alias gco='git checkout'
 alias v='nvim'
 alias shot='maim "$SCREENSHOT_DIR/$(date +%Y%m%d_%H%M%S).png"'
 alias shotw='maim -s "$SCREENSHOT_DIR/$(date +%Y%m%d_%H%M%S)_sel.png"'
-
+alias ls='lsd'
 # =========================================================
 #  fzf (if installed system-wide)
 # =========================================================
@@ -428,5 +428,10 @@ autoload bashcompinit
 bashcompinit
 alias of2512="source ${FOAM_INST_DIR}/OpenFOAM-v2512/etc/bashrc"
 
+
+# =========================================================
+#  Starship prompt
+# =========================================================
+eval "$(starship init zsh)"
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

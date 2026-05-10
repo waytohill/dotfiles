@@ -1,5 +1,7 @@
-require('options')
-require('keymaps')
-require('plugins')
-require('colorscheme')
-require('lsp')
+require("config.common.main")
+if vim.fn.exists("g:vscode") ~= 0 then
+  require("config.vscode.main")
+else
+  require("config.terminal.main")
+end
+require("config.postcommon.main")

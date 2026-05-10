@@ -1,1 +1,0 @@
--- Colorscheme is configured and loaded in plugins.lua (tokyonight plugin config)
