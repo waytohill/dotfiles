@@ -2,7 +2,7 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
   "logo": {
     "type": "kitty",
-    "source": "/home/nina/Pictures/Megumi_design_nobg.png",
+    "source": "/home/yukino/Pictures/Yukino1.png",
     "color": {
       "1": "",
       "2": "",
@@ -36,12 +36,12 @@
     "showErrors": false,
     "disableLinewrap": false,
     "hideCursor": false,
-    "separator": "] - [",
+    "separator": ": ",
     "color": {
-      "keys": "red",
-      "title": "#948889",
+      "keys": "blue",
+      "title": "#6b7b8c",
       "output": "white",
-      "separator": "#ee769e"
+      "separator": "#8ab4f8"
     },
     "brightColor": true,
     "duration": {
@@ -80,7 +80,7 @@
     },
     "bar": {
       "char": {
-        "elapsed": "■",
+        "elapsed": "=",
         "total": "-"
       },
       "border": {
@@ -101,9 +101,9 @@
     },
     "noBuffer": false,
     "key": {
-      "width": 0,
+      "width": 18,
       "type": "string",
-      "paddingLeft": 0
+      "paddingLeft": 2
     },
     "freq": {
       "ndigits": 2,
@@ -121,11 +121,10 @@
   "modules": [
     "break",
     "break",
-    "break",
     {
       "type": "title",
-      "key": "[User",
-      "format": "{user-name}@{host-name}]",
+      "key": "User",
+      "format": "{user-name}@{host-name}",
       "fqdn": false,
       "color": {
         "user": "",
@@ -135,38 +134,38 @@
     },
     {
       "type": "custom",
-      "format": "-----------------------",
-      "outputColor": "red"
+      "format": "  -------------------------------",
+      "outputColor": "blue"
     },
     {
       "type": "os",
-      "key": "[ OS",
-      "format": "{name} {arch}]"
+      "key": "OS",
+      "format": "{name} {arch}"
     },
     {
       "type": "host",
-      "key": "[󰌢 Host",
-      "format": "{name}]"
+      "key": "Device",
+      "format": "{name}"
     },
     {
       "type": "kernel",
-      "key": "[ Kernel",
-      "format": "{release}]"
+      "key": "Kernel",
+      "format": "{release}"
     },
     {
       "type": "datetime",
-      "key": "[󱑒 DateTime",
-      "format": "{0}-{3}-{11}]"
+      "key": "Current Time",
+      "format": "{0}-{3}-{11}"
     },
     {
       "type": "uptime",
-      "key": "[󰔛 Uptime",
-      "format": "{formatted}]"
+      "key": "Uptime",
+      "format": "{formatted}"
     },
     {
       "type": "packages",
-      "key": "[󰏖 Packages",
-      "format": "{flatpak-system} (flatpak), {pacman} (pacman)]",
+      "key": "Packages",
+      "format": "{pacman} (pacman)",
       "disabled": [
         "apk"
       ],
@@ -174,44 +173,44 @@
     },
     {
       "type": "shell",
-      "key": "[ Shell",
-      "format": "{process-name} {version}]"
+      "key": "Shell",
+      "format": "{process-name} {version}"
     },
     {
       "type": "display",
-      "key": "[󰍹 Display",
-      "format": "{width}x{height} @ {scale-factor}x in {inch}\", {refresh-rate} Hz ({type})]",
+      "key": "Display",
+      "format": "{width}x{height} @ {scale-factor}x in {inch}\", {refresh-rate} Hz{?type} ({type}){?}",
       "compactType": "none",
       "preciseRefreshRate": false,
-      "order": null
+      "detectDrm": true
     },
     {
       "type": "wm",
-      "key": "[ WM",
-      "format": "{process-name} ({protocol-name})]",
+      "key": "WM",
+      "format": "{process-name} ({protocol-name})",
       "detectPlugin": false
     },
     {
       "type": "font",
-      "key": "[ Font",
-      "format": "{combined}]"
+      "key": "Font",
+      "format": "{combined}"
     },
     {
       "type": "terminal",
-      "key": "[ Terminal",
-      "format": "{1}]"
+      "key": "Terminal",
+      "format": "{1}"
     },
     {
       "type": "cpu",
-      "key": "[ CPU",
-      "format": "{name} ({cores-logical}) @ {freq-max}]",
+      "key": "Processor",
+      "format": "{name} ({cores-logical}) @ {freq-max}",
       "temp": false,
       "showPeCoreCount": false
     },
     {
       "type": "gpu",
-      "key": "[󰾲 GPU",
-      "format": "{name} ({type})]",
+      "key": "Graphics",
+      "format": "{name} ({type})",
       "driverSpecific": false,
       "detectionMethod": "pci",
       "temp": false,
@@ -224,8 +223,8 @@
     },
     {
       "type": "memory",
-      "key": "[ Memory",
-      "format": "{used} / {total} ({percentage})]",
+      "key": "Memory",
+      "format": "{used} / {total} ({percentage})",
       "percent": {
         "green": 50,
         "yellow": 80,
@@ -234,8 +233,8 @@
     },
     {
       "type": "swap",
-      "key": "[󰓡 Swap",
-      "format": "{used} / {total} ({percentage})]",
+      "key": "Swap",
+      "format": "{used} / {total} ({percentage})",
       "percent": {
         "green": 50,
         "yellow": 80,
@@ -245,8 +244,8 @@
     },
     {
       "type": "disk",
-      "key": "[ Disk",
-      "format": "{size-used} / {size-total} ({size-percentage}) - {filesystem}]",
+      "key": "Storage",
+      "format": "{size-used} / {size-total} ({size-percentage}) - {filesystem}",
       "showRegular": true,
       "showExternal": true,
       "showHidden": false,
@@ -265,8 +264,8 @@
     },
     {
       "type": "localip",
-      "key": "[󰩟 LocalIP",
-      "format": "{ipv4}]",
+      "key": "Local IP",
+      "format": "{ipv4}",
       "showIpv4": true,
       "showIpv6": false,
       "showMac": false,
@@ -282,8 +281,8 @@
     },
     {
       "type": "battery",
-      "key": "[ Battery",
-      "format": "{capacity}]",
+      "key": "Battery",
+      "format": "{capacity} [{status}]",
       "temp": false,
       "percent": {
         "green": 50,
@@ -293,16 +292,14 @@
     },
     {
       "type": "locale",
-      "key": "[ Locale",
-      "format": "{result}]"
+      "key": "Locale",
+      "format": "{result}"
     },
     "break",
     {
       "type": "colors",
-      "key": " ",
-      "keyIcon": "",
+      "key": "Theme",
       "symbol": "circle",
-      "paddingLeft": 0,
       "block": {
         "width": 3,
         "range": [

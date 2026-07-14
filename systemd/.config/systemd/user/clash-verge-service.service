@@ -1,10 +1,12 @@
 [Unit]
-Description=Clash Proxy
+Description=Clash Verge Service
 After=network-online.target
 
 [Service]
-ExecStart=/usr/bin/clash -d %h/.config/clash
+Type=simple
+ExecStart=/usr/bin/clash-verge-service
 Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=default.target

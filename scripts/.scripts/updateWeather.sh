@@ -6,6 +6,8 @@ while true; do
 if [ -n "$WEATHER" ] && [[ "$WEATHER" != *"Unknown"* ]] && [[ "$WEATHER" != *"<"* ]]; then
     # 可选：用 sed 去掉加号，美化输出
     WEATHER=$(echo "$WEATHER" | sed 's/\(.\)  */\1 /')
+    # 移除 emoji 变体选择器 U+FE0F，避免 dwm 状态栏显示异常
+    WEATHER=$(echo "$WEATHER" | sed 's/\xef\xb8\x8f//g')
     echo "$WEATHER" > /tmp/weather_cache
 fi
     sleep 3600

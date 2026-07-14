@@ -97,14 +97,16 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
 alias x11='startx'
-alias wayland='startplasma-wayland'
+alias river='exec river'
 
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
 
-export http_proxy="http://127.0.0.1:7890"
-export https_proxy="http://127.0.0.1:7890"
-export all_proxy="socks5://127.0.0.1:7890"
+export http_proxy="http://127.0.0.1:7897"
+export https_proxy="http://127.0.0.1:7897"
+export all_proxy="socks5://127.0.0.1:7897"
+
+
 
 # =========================================================
 #  vcs_info (git info)
@@ -218,11 +220,11 @@ alias ls='lsd'
 # =========================================================
 
 function proxy_on() {
-    export http_proxy="http://127.0.0.1:7890"
-    export https_proxy="http://127.0.0.1:7890"
-    export all_proxy="socks5://127.0.0.1:7891"
+    export http_proxy="http://127.0.0.1:7897"
+    export https_proxy="http://127.0.0.1:7897"
+    export all_proxy="socks5://127.0.0.1:7897"
 
-    echo -e "\033[32m[√] Terminal Proxy is ON (127.0.0.1:7890)\033[0m"
+    echo -e "\033[32m[√] Terminal Proxy is ON (127.0.0.1:7897)\033[0m"
 }
 
 function proxy_off() {
@@ -435,3 +437,6 @@ alias of2512="source ${FOAM_INST_DIR}/OpenFOAM-v2512/etc/bashrc"
 eval "$(starship init zsh)"
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# kimi-code
+export PATH="/home/yukino/.kimi-code/bin:$PATH"

@@ -28,9 +28,9 @@ C_FULL="^c#8BE9FD^"   # > 75% 冰蓝/青色
 C_BG_BAR="^c#3B4252^" # 进度条底槽颜色 (深灰，比黑色浅一点)
 RESET="^d^"
 
-ICON_CHG=$(printf "\u26a1")   # ⚡
-ICON_PLUG=$(printf "\U1f50c") # 🔌
-ICON_BAT=$(printf "\U1f50b")  # 🔋
+ICON_CHG="CHG"   # charging
+ICON_PLUG="PLUG" # plugged
+ICON_BAT="BAT"   # battery
 
 # --- 4. 核心逻辑 ---
 
@@ -81,10 +81,12 @@ if [ "$ac_online" -eq 1 ]; then
     
     if [[ "$status" == *"harging"* ]] && [[ "$status" != "Not charging" ]]; then
          # 充电：黄色文字 + 黄色进度条
-         echo "${C_MID}${ICON_CHG}${text_str}${draw_bg}${C_MID}${draw_fg}${RESET}"
+         draw_fg="${C_MID}^r${start_x},${y_offset},${fill_width},${bar_height}^"
+         echo "${C_MID}${ICON_CHG}${text_str}${draw_bg}${draw_fg}${RESET}"
     else
          # 满电/未充：绿色文字 + 绿色全满条
-         echo "${C_GOOD}${ICON_PLUG}${text_str}${draw_bg}${C_GOOD}${draw_fg}${RESET}"
+         draw_fg="${C_GOOD}^r${start_x},${y_offset},${fill_width},${bar_height}^"
+         echo "${C_GOOD}${ICON_PLUG}${text_str}${draw_bg}${draw_fg}${RESET}"
     fi
 else
     # === 电池供电 ===

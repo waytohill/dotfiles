@@ -50,7 +50,7 @@ return {
 
   {
     "saghen/blink.pairs",
-    build = "cargo build --release",
+    version = "*",
     --- @module 'blink.pairs'
     --- @type blink.pairs.Config
     opts = {
